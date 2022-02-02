@@ -24,7 +24,8 @@ describe("AddressHodler", function () {
 
   it("works when we add a namehash", async function () {
     const nameHash = namehash.hash("alice.eth"); // 32 byte string
-    await contract.addAddress(nameHash);
+    await contract.addAddress(nameHash); // nameHash of "alice.eth" = 0x787192fc5378cc32aa956ddfdedbf26b24e8d78e40109add0eea2c1a012c3dec
+    // btw, that nameHash resolves to 0xFB338C5fE584c026270e5DeD1C2e0AcA786a22fe on Rinkeby
 
     expect(await contract.getBytes(0)).to.equal(nameHash);
   });
@@ -32,14 +33,14 @@ describe("AddressHodler", function () {
   it("works when we add a normal address", async function () {
     const address = "0xba744dde23446485cb4a175d8e78eeff2063875d";
     const bytes32address = address + "00".repeat(12);
-    await contract.addAddress(bytes32address);
+
+    await contract.addAddress(bytes32address); // 0xba744dde23446485cb4a175d8e78eeff2063875d000000000000000000000000
 
     expect((await contract.getAddress(0)).toLowerCase()).to.equal(address);
   });
 
   it("works when we add a normal address, then namehash, then normal address", async function () {
     const nameHash = namehash.hash("alice.eth"); // 32 byte string
-    await contract.addAddress(nameHash);
     expect(await contract.getBytes(0)).to.equal(nameHash);
 
     const address = "0xba744dde23446485cb4a175d8e78eeff2063875d";

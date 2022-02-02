@@ -1,5 +1,9 @@
 {
   "name": "hardhat-project",
+  "scripts": {
+    "test": "hardhat test",
+    "deploy:rinkeby": "hardhat run --network rinkeby scripts/deploy.js"
+  },
   "devDependencies": {
     "@ensdomains/eth-ens-namehash": "^2.0.15",
     "@nomiclabs/hardhat-ethers": "^2.0.4",
